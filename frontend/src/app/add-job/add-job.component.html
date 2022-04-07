@@ -1,0 +1,53 @@
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            [(ngModel)]="job.name"
+            name="name"/>
+        </div>
+  
+        <div class="form-group">
+          <label for="status">Status</label>
+          <input
+            class="form-control"
+            id="status"
+            required
+            [(ngModel)]="job.status"
+            name="status"/>
+        </div>
+
+        <div class="form-group">
+          <label for="recurrence_type">Tipo da Recorrência</label>
+          <input
+            class="form-control"
+            id="recurrence_type"
+            required
+            [(ngModel)]="job.recurrence_type"
+            name="recurrence_type"/>
+        </div>
+
+        <div class="form-group">
+          <label for="recurrence_value">Valor da Recorrência</label>
+          <input
+            class="form-control"
+            id="recurrence_value"
+            required
+            [(ngModel)]="job.recurrence_value"
+            name="recurrence_value"/>
+        </div>
+  
+        <button (click)="saveJob()" class="btn btn-success">Enviar</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Job criado com sucesso</h4>
+        <button class="btn btn-success" (click)="newJob()">Criar</button>
+      </div>
+    </div>
+  </div>

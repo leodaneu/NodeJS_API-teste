@@ -1,0 +1,97 @@
+<div class="col-md-12">
+    <div class="card card-container">
+      <form
+        *ngIf="!isSuccessful"
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        novalidate>
+        <div class="form-group">
+          <label for="username">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            [(ngModel)]="form.username"
+            required
+            minlength="3"
+            maxlength="20"
+            #username="ngModel"
+          />
+          <div class="alert-danger" *ngIf="username.errors && f.submitted">
+            <div *ngIf="username.errors.required">Nome de usuário é obrigatório</div>
+            <div *ngIf="username.errors.minlength">
+              Nome de usuário deve ter no mínimo 3 caracteres
+            </div>
+            <div *ngIf="username.errors.maxlength">
+              Nome de usuário deve ter no máximo 20 caracteres
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            email
+            #email="ngModel"
+          />
+          <div class="alert-danger" *ngIf="email.errors && f.submitted">
+            <div *ngIf="email.errors.required">Endereço de email é obrigatório</div>
+            <div *ngIf="email.errors.email">
+              Endereço de email deve ser válido
+            </div>
+          </div>
+        
+        
+          </div>
+        <div class="form-group">
+          <label for="phone_number">Telefone</label>
+          <input
+            type="tel"
+            class="form-control"
+            name="phone_number"
+            [(ngModel)]="form.phone_number"
+            required
+            phone_number
+            #phone_number="ngModel"/>
+          <div class="alert-danger" *ngIf="phone_number.errors && f.submitted">
+            <div *ngIf="phone_number.errors.required">Número de telefone é obrigatório</div>
+            <div *ngIf="phone_number.errors.phone_number">Número de telefone deve ser válido</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="6"
+            #password="ngModel"/>
+          <div class="alert-danger" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors.required">Senha é obrigatória</div>
+            <div *ngIf="password.errors.minlength">
+              Senha precisa ter no mínimo 6 caracteres
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">
+            <a href="/users" class="nav-link" routerLink="/users" *ngIf="isSuccessful"></a>
+            Sign Up
+          </button>
+        </div>
+        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+          Signup falhou<br />{{ errorMessage }}
+        </div>
+      </form>
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Signup realizado com sucesso
+      </div>
+    </div>
+  </div>
