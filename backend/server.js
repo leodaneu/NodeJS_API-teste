@@ -28,8 +28,8 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/job.routes')(app);
 
+//const PORT = process.env.NODE_DOCKER_PORT || 8080;
 const PORT = process.env.PORT || 8080;
-
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}.`);
 });

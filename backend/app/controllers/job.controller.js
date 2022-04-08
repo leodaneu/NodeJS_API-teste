@@ -1,5 +1,5 @@
 const db = require("../models");
-const Job = db.jobs;
+const Job = db.job;
 const Op = db.Sequelize.Op;
 
 const getPagination = (page, size) => {
@@ -11,14 +11,15 @@ const getPagination = (page, size) => {
 
 const getPagingData = (data, page, limit) => {
   const { count: totalItems, rows: jobs } = data;
-  const currentPage = page ? +page : 0;
+  const currentPage = page ? + page : 0;
   const totalPages = Math.ceil(totalItems / limit);
 
   return { totalItems, jobs, totalPages, currentPage };
 };
 
 exports.create = (req, res) => {
-  if (!req.body.title) {
+  
+  if (!req.body.name) {
     res.status(400).send({ message: "Conteúdo não pode ser vazio" });
     return;
   }
@@ -27,9 +28,9 @@ exports.create = (req, res) => {
     name: req.body.name,
     status: req.body.status,
     recurrence_type: req.body.recurrence_type ? req.body.recurrence_type : false,
-    recurrence_value: req.body.recurrence_value ? req.body.recurrence_value : '',
+    recurrence_value: req.body.recurrence_value ? req.body.recurrence_value : ''
   };
-  
+
   Job.create(job)
     .then(data => { res.send(data); })
     .catch(err => {
@@ -37,12 +38,14 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const name = req.query.name;
+
+    //const name = req.query.name;
+    const { page, size, name } = req.query;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
     const { limit, offset } = getPagination(page, size);
-    
-    Job.findAll({ where: condition })
+
+    Job.findAll({ where: condition, limit, offset })
       .then(data => { 
         const response = getPagingData(data, page, limit);
         res.send(response); 

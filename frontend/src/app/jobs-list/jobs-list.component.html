@@ -1,61 +1,61 @@
 <div class="list row">
-    <div class="col-md-8">
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Procurar por nome"
-          [(ngModel)]="name"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="searchName()">
-            Procurar
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <h4>Lista de Jobs</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let job of jobs; let i = index"
-          [class.active]="i == currentIndex"
-          (click)="setActiveJob(job, i)">
-          {{ job.name }}
-        </li>
-      </ul>
-  
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllJobs()">
-        Remover Todos
-      </button>
-    </div>
-    <div class="col-md-6">
-      <div *ngIf="currentJob.id">
-        <h4>Job</h4>
-        <div>
-          <label><strong>Title:</strong></label> {{ currentJob.name }}
-        </div>
-        <div>
-          <label><strong>Nome:</strong></label>
-          {{ currentJob.name }}
-        </div>
-        <div>
-          <label><strong>Status:</strong></label>
-          {{ currentJob.status ? "Ativo" : "Inativo" }}
-        </div>
-  
-        <a class="badge badge-warning" routerLink="/jobs/{{ currentJob.id }}">
-          Editar
-        </a>
-      </div>
-  
-      <div *ngIf="!currentJob">
-        <br />
-        <p>Selecione um job</p>
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Procurar por nome"
+        [(ngModel)]="name"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchName()">
+          Procurar
+        </button>
       </div>
     </div>
   </div>
+  <div class="col-md-6">
+    <h4>Lista de Jobs</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let job of jobs; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveJob(job, i)">
+        {{ job.name }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllJobs()">
+      Remover Todos
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentJob.id">
+      <h4>Job</h4>
+      <div>
+        <label><strong>Title:</strong></label> {{ currentJob.name }}
+      </div>
+      <div>
+        <label><strong>Nome:</strong></label>
+        {{ currentJob.name }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentJob.status ? "Ativo" : "Inativo" }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/jobs/{{ currentJob.id }}">
+        Editar
+      </a>
+    </div>
+
+    <div *ngIf="!currentJob">
+      <br />
+      <p>Selecione um job</p>
+    </div>
+  </div>
+</div>

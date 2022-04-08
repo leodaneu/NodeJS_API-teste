@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Job } from '../models/job.model';
 
 const baseUrl = 'http://localhost:8080/api/jobs/';
-//const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,8 @@ const baseUrl = 'http://localhost:8080/api/jobs/';
 export class JobService {
   constructor(private http: HttpClient) { }
   
-  getAll(): Observable<Job[]> {
-    return this.http.get<Job[]>(baseUrl);
+  getAll(params: any): Observable<any> {
+    return this.http.get<any>(baseUrl, { params });
   }
 
   get(id: any): Observable<Job> {

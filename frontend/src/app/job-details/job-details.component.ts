@@ -41,7 +41,7 @@ export class JobDetailsComponent implements OnInit {
 
   updatePublished(status: boolean): void {
     const data = {
-      title: this.currentJob.name,
+      name: this.currentJob.name,
       description: this.currentJob.name,
       status: status
     };

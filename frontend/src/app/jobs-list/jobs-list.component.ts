@@ -10,10 +10,15 @@ import { JobService } from 'src/app/_services/job.service';
 
 export class JobsListComponent implements OnInit {
 
-  jobs?: Job[];
+  jobs?: Job[] = [];
   currentJob: Job = {};
   currentIndex = -1;
   name = '';
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
 
   constructor(private jobService: JobService) { }
 
@@ -21,14 +26,50 @@ export class JobsListComponent implements OnInit {
     this.retrieveJobs();
   }
 
+  getRequestParams(searchName: string, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (searchName) {
+      params[`name`] = searchName;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
   retrieveJobs(): void {
-    this.jobService.getAll()
-      .subscribe(
-        data => {
-          this.jobs = data;
-          console.log(data);
-        },
-        error => { console.log(error); });
+    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+
+    this.jobService.getAll(params)
+    .subscribe(
+      response => {
+        const { jobs, totalItems } = response;
+        this.jobs = jobs;
+        this.count = totalItems;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.retrieveJobs();
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.retrieveJobs();
   }
 
   refreshList(): void {
@@ -51,7 +92,7 @@ export class JobsListComponent implements OnInit {
         },
         error => { console.log(error); });
   }
-
+/*
   searchName(): void {
     this.currentJob = {};
     this.currentIndex = -1;
@@ -63,6 +104,12 @@ export class JobsListComponent implements OnInit {
           console.log(data);
         },
         error => { console.log(error); });
+  }
+
+*/
+  searchName(): void {
+    this.page = 1;
+    this.retrieveJobs();
   }
 
 }
