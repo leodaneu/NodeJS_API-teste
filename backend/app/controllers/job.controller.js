@@ -45,7 +45,7 @@ exports.findAll = (req, res) => {
 
     const { limit, offset } = getPagination(page, size);
 
-    Job.findAll({ where: condition, limit, offset })
+    Job.findAndCountAll({ where: condition, limit, offset })
       .then(data => { 
         const response = getPagingData(data, page, limit);
         res.send(response); 
@@ -115,7 +115,7 @@ exports.findAllActive = (req, res) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    Job.findAll({ where: { status: true } })
+    Job.findAndCountAll({ where: { status: true } })
     .then(data => {
       const response = getPagingData(data, page, limit);
       res.send(response);

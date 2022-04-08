@@ -54,12 +54,13 @@ export class JobsListComponent implements OnInit {
         this.jobs = jobs;
         this.count = totalItems;
         console.log(response);
+        console.log(jobs);
+        console.log(params)
       },
       error => {
         console.log(error);
       });
   }
-
 
   handlePageChange(event: number): void {
     this.page = event;
@@ -92,7 +93,7 @@ export class JobsListComponent implements OnInit {
         },
         error => { console.log(error); });
   }
-/*
+
   searchName(): void {
     this.currentJob = {};
     this.currentIndex = -1;
@@ -106,10 +107,10 @@ export class JobsListComponent implements OnInit {
         error => { console.log(error); });
   }
 
-*/
+/*
   searchName(): void {
     this.page = 1;
     this.retrieveJobs();
   }
-
+*/
 }
