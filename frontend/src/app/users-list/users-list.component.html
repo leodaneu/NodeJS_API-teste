@@ -5,7 +5,7 @@
           type="text"
           class="form-control"
           placeholder="Procurar por nome"
-          [(ngModel)]="name"
+          [(ngModel)]="username"
         />
         <div class="input-group-append">
           <button
@@ -22,9 +22,11 @@
       <ul class="list-group">
         <li
           class="list-group-item"
-          *ngFor="let user of users; let i = index"
-          [class.active]="i == currentIndex">
-          {{ user.name }}
+          *ngFor="let user of users; 
+                  let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveUser(user, i)">
+          {{ user.username }}
         </li>
       </ul>
   
@@ -36,11 +38,13 @@
       <div *ngIf="currentUser.id">
         <h4>Usuário</h4>
         <div>
-          <label><strong>Nome:</strong></label> {{ currentUser.name }}
+          <label><strong>Nome:</strong></label> {{ currentUser.username }}
         </div>
         <div>
-          <label><strong>Nome:</strong></label>
-          {{ currentUser.name }}
+          <label><strong>Email:</strong></label>{{ currentUser.email }}
+        </div>
+        <div>
+          <label><strong>Telefone:</strong></label>{{ currentUser.phone_number }}
         </div>
         <div>
         <a class="badge badge-warning" routerLink="/users/{{ currentUser.id }}">

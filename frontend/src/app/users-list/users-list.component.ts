@@ -9,10 +9,15 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class UsersListComponent implements OnInit {
 
-  users?: User[];
+  users?: User[] = [];
   currentUser: User = {};
   currentIndex = -1;
-  name = '';
+  username = '';
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
 
   constructor(private userService: UserService) { }
 
@@ -20,20 +25,51 @@ export class UsersListComponent implements OnInit {
     this.retrieveUsers();
   }
 
+  getRequestParams(searchName: string, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (searchName) {
+      params[`name`] = searchName;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
   retrieveUsers(): void {
-    this.userService.getAll()
-      .subscribe(
-        data => {
-          this.users = data;
-          console.log(data);
-        },
-        error => { console.log(error); });
+    const params = this.getRequestParams(this.username, this.page, this.pageSize);
+
+    this.userService.getAll(params)
+    .subscribe(
+      response => {
+        const { users, totalItems } = response;
+        this.users = users;
+        this.count = totalItems;
+        console.log(response);
+        console.log(users);
+        console.log(params)
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   refreshList(): void {
     this.retrieveUsers();
     this.currentUser = {};
     this.currentIndex = -1;
+  }
+
+  setActiveUser(user: any, index: number): void {
+    this.currentUser = user;
+    this.currentIndex = index;
   }
 
   removeAllUsers(): void {
@@ -50,7 +86,7 @@ export class UsersListComponent implements OnInit {
     this.currentUser = {};
     this.currentIndex = -1;
 
-    this.userService.findByName(this.name)
+    this.userService.findByName(this.username)
       .subscribe(
         data => {
           this.users = data;

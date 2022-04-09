@@ -39,25 +39,6 @@ export class JobDetailsComponent implements OnInit {
         error => { console.log(error); });
   }
 
-  updatePublished(status: boolean): void {
-    const data = {
-      name: this.currentJob.name,
-      description: this.currentJob.name,
-      status: status
-    };
-
-    this.message = '';
-
-    this.jobService.update(this.currentJob.id, data)
-      .subscribe(
-        response => {
-          this.currentJob.status = status;
-          console.log(response);
-          this.message = response.message ? response.message : 'Status atualizado';
-        },
-        error => { console.log(error); });
-  }
-
   updateJob(): void {
     this.message = '';
 
