@@ -12,54 +12,39 @@
             name="name"
           />
         </div>
-        <div class="form-group">
+
+       <div class="form-group">
           <label for="status">Status</label><br/>
           <label>
-            Ativo
-            <input type="radio" class="form-control"
-            [(ngModel)]="currentJob.status" ng-value="Ativo" name="status" value="Ativo"/>
+            
+            <input type="radio"
+            [(ngModel)]="currentJob.status" [value]="true" name="status"/> Ativo
           </label> <br/>
           <label>
-            Inativo
-            <input
-            type="radio"
-            class="form-control"
             
-            [(ngModel)]="currentJob.status"
-            ng-value="Ativo"
-            name="status" value="Ativo"/>
+            <input type="radio" [(ngModel)]="currentJob.status" 
+            [value]="false" name="status"/> Inativo
           </label>
-            
-
         </div>
   
-        <div class="form-group">
-          <label><strong>Status:</strong></label>
-          {{ currentJob.status ? "Ativo" : "Inativo" }}
-        </div>
-      </form>
+      <div class="form-group">
+        <label for="status">Tipo de Recorrência</label><br/>
+        <label>
+          
+          <input type="radio" [(ngModel)]="currentJob.recurrence_type" 
+          [value]="true" name="recurrence_type"/> Intervalo
+        </label> <br/>
+        <label>
+          
+          <input type="radio" [(ngModel)]="currentJob.recurrence_type" 
+          [value]="false" name="recurrence_type"/> Horário Fixo
+        </label>
+      </div>
+    </form>
   
-      <button
-        class="badge badge-primary mr-2"
-        *ngIf="currentJob.status"
-        (click)="updatePublished(false)">
-        UnPublish
-      </button>
-      <button
-        *ngIf="!currentJob.status"
-        class="badge badge-primary mr-2"
-        (click)="updatePublished(true)">
-        Publish
-      </button>
+      <button class="badge badge-danger mr-2" (click)="deleteJob()"> Delete </button>
   
-      <button class="badge badge-danger mr-2" (click)="deleteJob()">
-        Delete
-      </button>
-  
-      <button
-        type="submit"
-        class="badge badge-success mb-2"
-        (click)="updateJob()">
+      <button type="submit" class="badge badge-success mb-2" (click)="updateJob()">
         Update
       </button>
       <p>{{ message }}</p>
@@ -67,6 +52,6 @@
   
     <div *ngIf="!currentJob.id">
       <br />
-      <p>Cannot access this Tutorial...</p>
+      <p>Não foi possível acessar este Job...</p>
     </div>
   </div>
