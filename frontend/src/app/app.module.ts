@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -44,7 +45,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

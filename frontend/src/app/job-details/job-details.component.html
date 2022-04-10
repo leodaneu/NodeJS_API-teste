@@ -4,13 +4,8 @@
       <form>
         <div class="form-group">
           <label for="name">Nome</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            [(ngModel)]="currentJob.name"
-            name="name"
-          />
+          <input type="text" class="form-control"
+            id="name" [(ngModel)]="currentJob.name" name="name"/>
         </div>
 
        <div class="form-group">
@@ -40,13 +35,22 @@
           [value]="false" name="recurrence_type"/> Horário Fixo
         </label>
       </div>
+
+      <div *ngIf="currentJob.recurrence_type" class="form-group">
+        <label for="recurrence_value">Valor da Recorrência</label>
+        <input type="text" class="form-control" mask='00:00'
+          id="recurrence_value" [(ngModel)]="currentJob.recurrence_value" name="recurrence_value"/>
+      </div>
+
+      <div *ngIf="!currentJob.recurrence_type" class="form-group">
+        <label for="recurrence_value">Valor da Recorrência</label>
+        <input type="time" class="form-control" 
+          id="recurrence_value" [(ngModel)]="currentJob.recurrence_value" name="recurrence_value"/>
+      </div>
+
     </form>
-  
-      <button class="badge badge-danger mr-2" (click)="deleteJob()"> Delete </button>
-  
-      <button type="submit" class="badge badge-success mb-2" (click)="updateJob()">
-        Update
-      </button>
+      <button class="badge badge-danger mr-2" (click)="deleteJob()"> Deletar </button>
+      <button type="submit" class="badge badge-success mb-2" (click)="updateJob()"> Atualizar </button>
       <p>{{ message }}</p>
     </div>
   

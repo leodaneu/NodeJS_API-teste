@@ -18,36 +18,35 @@ const getPagingData = (data, page, limit) => {
 };
 
 exports.allAccess = (req, res) => {
-    res.status(200).send("Conteúdo de acesso público.");
-  };
-  
-  exports.userBoard = (req, res) => {
-    res.status(200).send("Conteúdo de acesso para usuários comuns");
-  };
-  
-  exports.adminBoard = (req, res) => {
-    res.status(200).send("Conteúdo de acesso para usuários do tipo Admin");
-  };
+  res.status(200).send("Conteúdo de acesso público.");
+};
 
-  exports.moderatorBoard = (req, res) => {
-    res.status(200).send("Conteúdo de acesso para usuários do tipo Moderador");
-  };
+exports.userBoard = (req, res) => {
+  res.status(200).send("Conteúdo de acesso para usuários comuns");
+};
 
-  exports.findAll = (req, res) => {
+exports.adminBoard = (req, res) => {
+  res.status(200).send("Conteúdo de acesso para usuários do tipo Admin");
+};
 
-    //const name = req.query.name;
-    const { page, size, name } = req.query;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+exports.moderatorBoard = (req, res) => {
+  res.status(200).send("Conteúdo de acesso para usuários do tipo Moderador");
+};
 
-    const { limit, offset } = getPagination(page, size);
+exports.findAll = (req, res) => {
+  //const name = req.query.name;
+  const { page, size, name } = req.query;
+  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-    User.findAndCountAll({ where: condition, limit, offset })
-      .then(data => { 
-        const response = getPagingData(data, page, limit);
-        res.send(response); 
-      })
-      .catch(err => {
-        res.status(500).send({ message: err.message || "Ocorreu algum erro ao retornar os usuários" }); });
+  const { limit, offset } = getPagination(page, size);
+
+  User.findAndCountAll({ where: condition, limit, offset })
+    .then(data => { 
+      const response = getPagingData(data, page, limit);
+      res.send(response); 
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || "Ocorreu algum erro ao retornar os usuários" }); });
 };
 
 exports.findOne = (req, res) => {
